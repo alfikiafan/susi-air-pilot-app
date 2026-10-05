@@ -1,0 +1,34 @@
+{
+  "name": "nuxt",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint .",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^1.0.2",
+    "lucide-vue-next": "^1.0.0",
+    "nuxt": "^3.21.11",
+    "pinia": "^4.0.3",
+    "vue": "^3.5.43",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "oxlint": "^1.87.0",
+    "prettier": "^3.9.9",
+    "sass": "^1.105.1",
+    "typescript": "~5.9",
+    "vitest": "^5.0.1",
+    "vue-tsc": "^3.3.12"
+  }
+}

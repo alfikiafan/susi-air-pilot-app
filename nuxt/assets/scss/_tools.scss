@@ -1,0 +1,38 @@
+// Compile-time helpers, injected into every component. Emits no CSS on its own.
+
+$bp-tablet: 600px;
+
+$radius-card: 14px;
+$radius-sm: 10px;
+$radius-pill: 999px;
+
+$shell-max-width: 480px;
+$bottom-nav-height: 64px;
+
+@mixin card {
+  background: var(--color-surface);
+  border-radius: $radius-card;
+  box-shadow: var(--shadow-card);
+}
+
+@mixin numeric {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

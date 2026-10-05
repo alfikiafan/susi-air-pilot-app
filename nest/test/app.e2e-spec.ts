@@ -93,6 +93,7 @@ describe('Pilot API (e2e)', () => {
       username: 'johndoe',
       name: 'John Doe',
       totalFlightHours: 1444.5,
+      today: '2026-05-15',
     });
     expect(res.body.avatarUrl).toMatch(/^https:\/\//);
   });

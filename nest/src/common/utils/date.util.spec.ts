@@ -1,10 +1,4 @@
-import {
-  addDays,
-  daysInMonth,
-  diffDays,
-  eachDay,
-  isValidIsoDate,
-} from './date.util.js';
+import { addDays, diffDays, eachDay, isValidIsoDate } from './date.util.js';
 
 describe('date.util', () => {
   it('accepts real ISO dates only', () => {
@@ -37,11 +31,5 @@ describe('date.util', () => {
       '2026-05-02',
     ]);
     expect(eachDay('2026-05-02', '2026-05-01')).toEqual([]);
-  });
-
-  it('knows month lengths', () => {
-    expect(daysInMonth(2026, 2)).toBe(28);
-    expect(daysInMonth(2024, 2)).toBe(29);
-    expect(daysInMonth(2026, 4)).toBe(30);
   });
 });

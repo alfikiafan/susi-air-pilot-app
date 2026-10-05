@@ -37,10 +37,6 @@ export function eachDay(from: string, to: string): string[] {
   return days;
 }
 
-export function daysInMonth(year: number, month: number): number {
-  return new Date(Date.UTC(year, month, 0)).getUTCDate();
-}
-
 function requireDate(date: string): number {
   const time = parseIsoDate(date);
   if (time === null) throw new Error(`Invalid ISO date: ${date}`);

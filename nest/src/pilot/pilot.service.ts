@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import type { AuthUser } from '../common/decorators/current-user.decorator.js';
+import { ClockService } from '../core/clock.service.js';
 import { DataService } from '../core/data/data.service.js';
 import type { PilotProfileDto } from './dto/pilot-profile.dto.js';
 
 @Injectable()
 export class PilotService {
-  constructor(private readonly data: DataService) {}
+  constructor(
+    private readonly data: DataService,
+    private readonly clock: ClockService,
+  ) {}
 
   getProfile(user: AuthUser): PilotProfileDto {
     const { name, totalFlightHours } = this.data.flightHours.pilot;
@@ -14,6 +18,7 @@ export class PilotService {
       name,
       totalFlightHours,
       avatarUrl: avatarUrlFor(name),
+      today: this.clock.today(),
     };
   }
 }

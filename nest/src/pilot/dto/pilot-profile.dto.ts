@@ -12,4 +12,11 @@ export class PilotProfileDto {
 
   @ApiProperty({ example: 'https://ui-avatars.com/api/?name=John+Doe' })
   avatarUrl: string;
+
+  @ApiProperty({
+    example: '2026-05-15',
+    description:
+      "The server's reference date, so clients never derive today from the device clock",
+  })
+  today: string;
 }
