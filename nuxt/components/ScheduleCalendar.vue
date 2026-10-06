@@ -167,10 +167,10 @@ function cellLabel(cell: DayCell) {
   right: -7px;
   display: grid;
   place-items: center;
-  min-width: 19px;
-  height: 19px;
+  min-width: 20px;
+  height: 20px;
   padding: 0 3px 2px;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1;
   color: #fff;
