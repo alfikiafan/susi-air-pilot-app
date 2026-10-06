@@ -1,75 +1,37 @@
-# Nuxt Minimal Starter
+# Susi Air Pilot App (web)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 3 + Pinia + SCSS (TypeScript) mobile-first web app: sign in, the Home dashboard (hours to limit, trend chart, documents) and the monthly Schedule. Every value comes from the API; nothing is mocked here.
 
-## Setup
-
-Make sure to install dependencies:
+Setup, environment variables and the reasoning behind the main decisions are in the [root README](../README.md).
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+cp .env.example .env     # optional: defaults to the API at http://localhost:3001
+npm run dev              # http://localhost:3000
 ```
 
-## Development Server
+| Script              | Does                         |
+| ------------------- | ---------------------------- |
+| `npm run dev`       | Dev server                   |
+| `npm run build`     | Production build             |
+| `npm run preview`   | Preview the production build |
+| `npm run typecheck` | Type check                   |
+| `npm test`          | Unit tests for `utils/`      |
+| `npm run lint`      | Lint (oxlint)                |
+| `npm run format`    | Format (Prettier)            |
 
-Start the development server on `http://localhost:3000`:
+| Environment variable   | Default                 | Purpose             |
+| ---------------------- | ----------------------- | ------------------- |
+| `NUXT_PUBLIC_API_BASE` | `http://localhost:3001` | Base URL of the API |
 
-```bash
-# npm
-npm run dev
+## Layout
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pages/        login, index (Home), schedule, schedule/[date], logbook, more
+components/   LimitCard, FlightHoursChart (SVG), RangeToggle, ScheduleCalendar, DutyLegend, ...
+stores/       Pinia: auth, pilot, flightHours, documents, schedule, network
+composables/  useApi: $fetch with the bearer token, slow-request tracking and 401 handling
+middleware/   auth.global: guards every page except /login
+assets/scss/  design tokens (CSS custom properties) and SCSS tools
+types/        API response types
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
