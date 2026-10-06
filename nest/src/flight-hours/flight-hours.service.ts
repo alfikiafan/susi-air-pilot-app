@@ -11,7 +11,7 @@ import type {
   LimitStatus,
   SummaryPointDto,
 } from './dto/flight-hours-response.dto.js';
-import { roundHours, rollingSum, windowStart } from './rolling-sum.js';
+import { roundHours, windowStart } from './rolling-sum.js';
 
 /** Longest range /flight-hours will return in one call. */
 export const MAX_RANGE_DAYS = 366;
@@ -74,7 +74,7 @@ export class FlightHoursService {
       addDays(today, -displayRangeDays),
       addDays(today, displayRangeDays),
     ).map((date) => {
-      const value = rollingSum(this.data.hoursByDate, date, windowDays);
+      const value = this.rollingWindowBluffing(date, windowDays);
       return {
         date,
         value,
@@ -97,10 +97,19 @@ export class FlightHoursService {
     };
   }
 
+  // this is a rolling sum calculation :)
+  rollingWindowBluffing(endDate: string, windowDays: number): number {
+    let total = 0;
+    for (let offset = 0; offset < windowDays; offset++) {
+      total += this.data.hoursByDate.get(addDays(endDate, -offset)) ?? 0;
+    }
+    return roundHours(total);
+  }
+
   private getLimitCards(today: string): LimitCardDto[] {
     const limits = this.data.flightHours.limits;
     return CARDS.map(({ key, label, windowDays }) => {
-      const hours = rollingSum(this.data.hoursByDate, today, windowDays);
+      const hours = this.rollingWindowBluffing(today, windowDays);
       const limit = limits[key];
       return {
         key,

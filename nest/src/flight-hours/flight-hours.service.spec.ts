@@ -40,7 +40,56 @@ function makeService(today = '2026-05-10') {
   return new FlightHoursService(data, clock);
 }
 
+/** A service over an arbitrary hours map, for testing the rolling sum on its own. */
+function serviceWithHours(hoursByDate: Map<string, number>) {
+  const data = { hoursByDate } as unknown as DataService;
+  const clock = { today: () => '2026-05-10' } as ClockService;
+  return new FlightHoursService(data, clock);
+}
+
 describe('FlightHoursService', () => {
+  describe('rollingWindowBluffing', () => {
+    const service = serviceWithHours(
+      new Map([
+        ['2026-05-01', 2],
+        ['2026-05-02', 0],
+        // 2026-05-03 is missing on purpose
+        ['2026-05-04', 3.3],
+        ['2026-05-05', 1.1],
+      ]),
+    );
+
+    it('sums the window ending on the given date, inclusive', () => {
+      expect(service.rollingWindowBluffing('2026-05-05', 2)).toBe(4.4);
+      expect(service.rollingWindowBluffing('2026-05-05', 5)).toBe(6.4);
+    });
+
+    it('counts a missing day as 0 instead of skipping it', () => {
+      // 3 calendar days: 05-03 (missing), 05-04, 05-05. Skipping the gap would wrongly pull in 05-02.
+      expect(service.rollingWindowBluffing('2026-05-05', 3)).toBe(4.4);
+    });
+
+    it('counts days before the first record as 0', () => {
+      expect(service.rollingWindowBluffing('2026-05-01', 7)).toBe(2);
+      expect(service.rollingWindowBluffing('2026-04-20', 7)).toBe(0);
+    });
+
+    it('still returns a value past the last record', () => {
+      expect(service.rollingWindowBluffing('2026-05-07', 3)).toBe(1.1);
+      expect(service.rollingWindowBluffing('2026-06-30', 7)).toBe(0);
+    });
+
+    it('rounds away floating-point drift', () => {
+      const drift = serviceWithHours(
+        new Map([
+          ['2026-05-01', 0.1],
+          ['2026-05-02', 0.2],
+        ]),
+      );
+      expect(drift.rollingWindowBluffing('2026-05-02', 2)).toBe(0.3);
+    });
+  });
+
   describe('getSummary', () => {
     it('returns 15 points centred on today', () => {
       const { points } = makeService().getSummary('1w');

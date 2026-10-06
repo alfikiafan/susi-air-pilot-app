@@ -101,7 +101,7 @@ All errors share one shape:
 
 ## How it is built
 
-**API.** One module per feature (`auth`, `pilot`, `flight-hours`, `documents`, `schedules`), each with controller, service and DTOs. A global `ValidationPipe` validates query and body input, a global exception filter produces the error shape above, and a global `AuthGuard` protects everything except routes marked `@Public()` (only login). The mock JSON files are loaded once at boot into an in-memory store; there is no database. The rolling-sum maths is a pure function in [`rolling-sum.ts`](nest/src/flight-hours/rolling-sum.ts) with its own unit tests.
+**API.** One module per feature (`auth`, `pilot`, `flight-hours`, `documents`, `schedules`), each with controller, service and DTOs. A global `ValidationPipe` validates query and body input, a global exception filter produces the error shape above, and a global `AuthGuard` protects everything except routes marked `@Public()` (only login). The mock JSON files are loaded once at boot into an in-memory store; there is no database. The rolling sum is the `rollingWindowBluffing()` method of [`FlightHoursService`](nest/src/flight-hours/flight-hours.service.ts), named as the brief requires, with its own unit tests.
 
 **Web app.** Client-rendered SPA (`ssr: false`): it is a signed-in tool talking to a separate API, so server rendering would add nothing. Pinia stores own all server data (`auth`, `pilot`, `flightHours`, `documents`, `schedule`); components only render. Nothing is mocked or hardcoded on the client, and the client does no rolling-sum maths: the chart draws what the API returns. The chart is plain SVG, so there is no charting dependency.
 
