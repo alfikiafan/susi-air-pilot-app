@@ -324,7 +324,7 @@ function niceStep(raw: number): number {
 .chart {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .chart__readout {
@@ -339,6 +339,7 @@ function niceStep(raw: number): number {
   display: flex;
   gap: 6px;
   align-items: center;
+  margin-bottom: 4px;
   font-size: 12px;
   font-weight: 600;
   color: var(--color-text-secondary);

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Check } from 'lucide-vue-next';
 import type { ScheduleEntry } from '~/types/api';
-import { readableTextColor } from '~/utils/color';
 import {
   daysInMonth,
   formatLongDate,
@@ -43,7 +42,7 @@ function cellStyle(cell: DayCell) {
   if (!cell.entry) return undefined;
   return {
     backgroundColor: cell.entry.base_color,
-    color: readableTextColor(cell.entry.base_color),
+    color: '#FFFFFF',
   };
 }
 
@@ -83,16 +82,13 @@ function cellLabel(cell: DayCell) {
           :aria-label="cellLabel(cell)"
         >
           <span class="day__number">{{ cell.day }}</span>
-          <span v-if="cell.entry" class="day__base">{{
-            cell.entry.base_name
-          }}</span>
 
           <span
             v-if="cell.entry && cell.entry.is_complete"
             class="day__badge day__badge--done"
             aria-hidden="true"
           >
-            <Check :size="10" :stroke-width="3.5" />
+            <Check :size="12" :stroke-width="3.5" />
           </span>
           <span v-else-if="cell.entry" class="day__badge" aria-hidden="true">{{
             cell.entry.remaining
@@ -138,7 +134,6 @@ function cellLabel(cell: DayCell) {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1px;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -166,32 +161,26 @@ function cellLabel(cell: DayCell) {
   line-height: 1;
 }
 
-.day__base {
-  max-width: 100%;
-  overflow: hidden;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-overflow: clip;
-  white-space: nowrap;
-  opacity: 0.9;
-}
-
 .day__badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -8px;
+  right: -7px;
   display: grid;
   place-items: center;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 4px;
-  font-size: 10px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 3px 2px;
+  font-size: 8px;
   font-weight: 800;
+  line-height: 1;
   color: #fff;
   background: var(--color-brand-red);
-  border: 2px solid var(--color-surface);
+  border: 1.5px solid var(--color-surface);
   border-radius: $radius-pill;
+
+  svg {
+    display: block;
+  }
 }
 
 .day__badge--done {

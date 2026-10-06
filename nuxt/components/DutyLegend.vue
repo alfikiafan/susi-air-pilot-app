@@ -21,16 +21,22 @@ defineProps<{ items: LegendItem[] }>();
 <style scoped lang="scss">
 .legend {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, max-content);
   gap: 10px 12px;
+  justify-content: space-between;
   padding: 0;
   margin: 0;
   list-style: none;
+
+  @media (max-width: 359px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: normal;
+  }
 }
 
 .legend__item {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
   min-width: 0;
   font-size: 12px;
@@ -45,12 +51,17 @@ defineProps<{ items: LegendItem[] }>();
 
 .legend__code {
   flex-shrink: 0;
-  width: 30px;
   font-weight: 700;
 }
 
 .legend__label {
+  min-width: 0;
   line-height: 1.3;
   color: var(--color-text-secondary);
+  white-space: nowrap;
+
+  @media (max-width: 359px) {
+    white-space: normal;
+  }
 }
 </style>

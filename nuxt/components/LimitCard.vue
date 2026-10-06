@@ -114,6 +114,7 @@ const barWidth = computed(() => `${Math.min(props.card.percentUsed, 100)}%`);
 
 .limit-card__bar {
   height: 6px;
+  margin-top: auto; // keeps the bar and footer level across cards in a row, even if one value wraps
   overflow: hidden;
   background: var(--color-muted-surface);
   border-radius: $radius-pill;

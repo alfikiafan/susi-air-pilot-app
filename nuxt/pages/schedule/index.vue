@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { formatMonthYear, type YearMonth, yearMonthOf } from '~/utils/date';
 
 useHead({ title: 'Schedule · Susi Air Pilot' });
@@ -137,10 +137,17 @@ const isEmpty = computed(
       </p>
 
       <div class="status-key">
-        <span><span class="status-key__badge">2</span> Duties left to log</span>
         <span
-          ><span class="status-key__badge status-key__badge--done">✓</span> All
-          logged</span
+          ><span class="status-key__badge" aria-hidden="true">2</span> Duties
+          left to log</span
+        >
+        <span
+          ><span
+            class="status-key__badge status-key__badge--done"
+            aria-hidden="true"
+            ><Check :size="12" :stroke-width="3.5"
+          /></span>
+          All logged</span
         >
       </div>
     </div>
@@ -251,16 +258,23 @@ const isEmpty = computed(
 .status-key__badge {
   display: grid;
   place-items: center;
-  min-width: 17px;
-  height: 17px;
-  font-size: 10px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 3px 2px;
+  font-size: 8px;
   font-weight: 800;
+  line-height: 1;
   color: #fff;
   background: var(--color-brand-red);
   border-radius: $radius-pill;
+
+  svg {
+    display: block;
+  }
 }
 
 .status-key__badge--done {
+  padding: 0;
   background: var(--color-success);
 }
 </style>

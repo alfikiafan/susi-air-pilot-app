@@ -141,7 +141,7 @@ const isSwitchingRange = computed(
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .trend-card__title {

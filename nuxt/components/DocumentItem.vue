@@ -13,11 +13,22 @@ const badge = computed(
     ],
 );
 
+// Non-breaking spaces keep "14 days left" and the date in one piece, so a line can only break after the dot.
+const NBSP = String.fromCharCode(160);
+
+const dateLabel = computed(() =>
+  formatDate(props.document.expiryDate).replaceAll(' ', NBSP),
+);
+
 const detail = computed(() => {
   const days = props.document.daysRemaining;
-  if (days < 0) return `Expired ${-days} day${days === -1 ? '' : 's'} ago`;
-  if (days === 0) return 'Expires today';
-  return `${days} day${days === 1 ? '' : 's'} left`;
+  const text =
+    days < 0
+      ? `Expired ${-days} day${days === -1 ? '' : 's'} ago`
+      : days === 0
+        ? 'Expires today'
+        : `${days} day${days === 1 ? '' : 's'} left`;
+  return text.replaceAll(' ', NBSP);
 });
 </script>
 
@@ -29,10 +40,9 @@ const detail = computed(() => {
     <div class="document__body">
       <p class="document__label">{{ document.label }}</p>
       <p class="document__meta">
-        <time :datetime="document.expiryDate">{{
-          formatDate(document.expiryDate)
-        }}</time>
-        · {{ detail }}
+        <time :datetime="document.expiryDate">{{ dateLabel }}</time
+        >&nbsp;·
+        {{ detail }}
       </p>
     </div>
     <span class="document__badge">{{ badge }}</span>

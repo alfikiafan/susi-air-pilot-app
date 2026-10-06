@@ -46,7 +46,7 @@ npm run lint
 npm run build
 
 cd nuxt
-npm test              # unit tests for the date, colour, format and error helpers
+npm test              # unit tests for the date, format and error helpers
 npm run typecheck
 npm run lint
 npm run build
@@ -133,7 +133,9 @@ All errors share one shape:
 
 **Logbook and More.** The brief lists them in the bottom navigation but does not describe them, so Logbook is a "coming soon" page, and More holds the profile and a Sign out button (the only way to sign out).
 
-**Colour follows the brief exactly.** All ten colours in the brief's palette are used as given (text, backgrounds, buttons, bars, badges). The only additions are three neutral greys for dividers, muted backgrounds and the loading shimmer, and translucent tints of the brief's colours behind badges. One consequence worth knowing: some of the brief's colours do not reach the 4.5:1 contrast that WCAG AA asks for when used as small text on light backgrounds (the success green and warning amber measure 2.1 to 2.4:1, the brand red 4.2:1, and the secondary grey 4.47:1 on the page background). I kept the brief's values rather than darken them. Everything else passes an axe-core scan (WCAG 2.2 AA) on every page, and the app was checked in a browser at 320, 390, 768 and 1280px wide.
+**Colour follows the brief exactly.** All ten colours in the brief's palette are used as given (text, backgrounds, buttons, bars, badges). The only additions are three neutral greys for dividers, muted backgrounds and the loading shimmer, and translucent tints of the brief's colours behind badges. The brief sets no contrast requirement, but I held the app to WCAG AA (4.5:1 for small text) as my own bar, and some of the brief's colours fall short of it as small text on the page background: the success green and warning amber measure 2.1 to 2.4:1, the brand red 4.2:1, and the secondary grey 4.47:1. I kept the brief's values rather than darken them.
+
+The calendar day text is white, which the brief does not specify; it is my own choice, for a consistent look across every duty colour. Against the lighter ones (On Duty green, Training amber, Travel Day) it measures roughly 2 to 3.8:1 across six of the ten duty colours, below the same AA bar. Each day's duty type is also in its accessible label, so colour is not the only carrier of meaning. Apart from colour contrast, an axe-core scan (WCAG 2.2 AA) of every page reported nothing, and the app was checked in a browser at 320, 390, 768 and 1280px wide.
 
 ## Deployment
 
